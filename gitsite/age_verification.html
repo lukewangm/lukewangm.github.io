@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello</title>
+    </head>
+    <body>
+        <h1 id='h1'>What is your name?</h1>
+        <div id= "questions">
+            <input type="text" id="input">
+            <button onclick="handleClicks()">Enter</button>
+        </div>
+        <div id ="reset" style="display: none;">
+            <p id = "age">You are of age</p>
+            <button onclick="reset()">Reset</button>
+        </div>
+        <script>
+            let jsonObj = {
+                name: '', 
+                age : 0,
+                favorite: 'none'
+            }
+            let myJSON = JSON.stringify(jsonObj)
+            var arr = [ 'What is your name?', 'How old are you?', 'What is your favorite color?', 'Those are all the questions']
+            function handleClicks() {
+                switch(h1.innerText) {
+                    case arr[0]: 
+                        h1.innerText = arr[1]
+                        jsonObj.name = document.getElementById("input").value;
+                        break;
+
+                    case arr[1]:
+                        h1.innerText = arr[2]
+                        jsonObj.age = document.getElementById("input").value;
+                        break
+
+                    case arr[2]:
+                        h1.innerText = arr[3]
+                        jsonObj.favorite = document.getElementById("input").value;
+                        console.log(document.getElementById("input").value)
+                        hideQuestions() 
+                        break
+                    
+                    case arr[3]:
+                        console.log(jsonObj)
+                        break
+
+                    default:
+                        
+                }
+                document.getElementById("input").value = "";
+                myJSON = JSON.stringify(jsonObj)
+                document.getElementById("myObj").innerHTML = myJSON;
+            }
+            function reset(){
+                h1.innerText = "What is your name?";
+                hideQuestions() 
+            }
+            function hideQuestions() {
+                if (Number(jsonObj.age) < 21){
+                    document.getElementById("age").innerHTML= "You are not of age"
+                }
+                else{
+                    document.getElementById("age").innerHTML = "You are of age"
+                }
+
+                var x = document.getElementById("questions");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+                var y = document.getElementById("reset");
+                if (y.style.display === "block") {
+                    y.style.display = "none";
+                } else {
+                    y.style.display = "block";
+                }
+            }
+            input.addEventListener("keypress", function(event) {
+            // If the user presses the "Enter" key on the keyboard
+            if (event.key === "Enter") {
+                handleClicks()
+            }
+            });
+        </script>
+        <p id="myObj""></p>
+    </body>
+</html>
